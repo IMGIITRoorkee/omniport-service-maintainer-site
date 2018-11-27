@@ -1,0 +1,6 @@
+nomenclature:
+  name: maintainer_site
+  verboseName: Maintainer Site
+baseUrls:
+  http: maintainer_site/
+  isApi: true
