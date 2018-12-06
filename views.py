@@ -31,7 +31,11 @@ class BlogsView(APIView):
         content = response.content
         text = content[16:]
         blogs = json.loads(text).get('payload')
+        blog_count = 0
+        total_blog = 6
         for blog in blogs.get('posts'):
+            if (blog_count == total_blog):
+                break
             required_content = {}
             for j in required_data_posts:
                 required_content[j] = blog.get(j)
@@ -40,7 +44,8 @@ class BlogsView(APIView):
             user = blogs.get('references').get('User').get(required_content['creatorId'])
             required_content['name'] = user.get('name')
             required_content['authorImageId'] = user.get('imageId')
-            required_response.append(required_content)                    
+            required_response.append(required_content)
+            blog_count += 1
         return Response(required_response)
 
 
@@ -51,4 +56,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
 
     serializer_class = ProjectSerializer
     queryset = Project.objects.all()
-
+    
+    def list(self, request, *args, **kwargs):
+        self.pagination_class.page_size = 12
+        return super().list(request, *args, **kwargs)
