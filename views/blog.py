@@ -2,10 +2,7 @@ import requests
 import json
 
 from rest_framework.views import APIView
-from rest_framework import viewsets
 from rest_framework.response import Response
-from maintainer_site.serializers import ProjectSerializer
-from maintainer_site.models.models import Project
 
 
 class BlogsView(APIView):
@@ -47,16 +44,3 @@ class BlogsView(APIView):
             required_response.append(required_content)
             blog_count += 1
         return Response(required_response)
-
-
-class ProjectViewSet(viewsets.ModelViewSet):
-    """
-    A viewset for viewing and editing all the Projects
-    """
-
-    serializer_class = ProjectSerializer
-    queryset = Project.objects.all()
-    
-    def list(self, request, *args, **kwargs):
-        self.pagination_class.page_size = 12
-        return super().list(request, *args, **kwargs)
