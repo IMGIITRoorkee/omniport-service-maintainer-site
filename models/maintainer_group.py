@@ -2,6 +2,7 @@ import swapper
 import datetime
 
 from django.contrib.contenttypes import fields as contenttypes_fields
+from django.conf import settings
 from django.db import models
 
 from kernel.models.root import Model
@@ -57,10 +58,9 @@ class MaintainerGroup(Model):
         
         self.pk = 1
         self.datetime_created = datetime.datetime.now()
-        
-        self.name = settings.CONFIGURATION.branding.text.name
-        self.homepage = settings.CONFIGURATION.branding.text.homepage
-        self.acronym = settings.CONFIGURATION.branding.text.acronym
+        self.name = settings.MAINTAINERS.text.name
+        self.homepage = settings.MAINTAINERS.text.home_page or ''
+        self.acronym = settings.MAINTAINERS.text.acronym or ''
         
         super().save(*args, **kwargs)
 
