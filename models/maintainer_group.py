@@ -11,7 +11,7 @@ from kernel.utils.upload_to import UploadTo
 
 class MaintainerGroup(Model):
     """
-    This model holds the information of the maintianer group like contact information,address,etc.
+    This model holds the information of the maintainer group like contact information,address,etc.
     """
     
     name = models.CharField(
