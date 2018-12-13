@@ -3,4 +3,5 @@ nomenclature:
   verboseName: Maintainer Site
 baseUrls:
   http: maintainer_site/
+  static: maintainer_site/
 isApi: true

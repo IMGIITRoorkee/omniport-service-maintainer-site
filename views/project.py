@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from maintainer_site.serializers import ProjectSerializer
-from maintainer_site.models import Project
+from maintainer_site.serializers.project import ProjectSerializer
+from maintainer_site.models.project import Project
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
@@ -9,7 +9,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
     """
 
     serializer_class = ProjectSerializer
-    queryset = Project.objects.all()
+    queryset = Project.objects.all().order_by('-datetime_created')
     
     def list(self, request, *args, **kwargs):
         self.pagination_class.page_size = 12
