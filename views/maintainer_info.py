@@ -12,6 +12,7 @@ class MaintainerInfoViewSet(viewsets.ModelViewSet):
     """
     
     serializer_class = MaintainerInfoSerializer
+    queryset = MaintainerInformation.objects.all()
     
 class ActiveMaintainerInfoViewSet(MaintainerInfoViewSet):
     """

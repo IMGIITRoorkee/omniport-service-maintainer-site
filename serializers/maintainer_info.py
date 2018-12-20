@@ -17,9 +17,11 @@ class MaintainerInfoSerializer(serializers.ModelSerializer):
     social_information = SocialInformationSerializer(
         source='maintainer.person.social_information',
         many=True,
+        read_only=True,
     )
     full_name = AvatarSerializer(
         source='maintainer.person',
+        read_only=True,
     )
       
     
