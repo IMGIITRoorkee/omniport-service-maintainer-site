@@ -22,8 +22,7 @@ class MaintainerInfoSerializer(serializers.ModelSerializer):
     full_name = AvatarSerializer(
         source='maintainer.person',
         read_only=True,
-    )
-      
+    )  
     
     class Meta:
         """
@@ -32,5 +31,8 @@ class MaintainerInfoSerializer(serializers.ModelSerializer):
         exclude = [
             'datetime_created',
             'datetime_modified',
+        ]
+        read_only_fields = [
+            'maintainer',
         ]
 
