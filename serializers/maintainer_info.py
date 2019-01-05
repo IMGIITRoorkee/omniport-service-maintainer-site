@@ -7,9 +7,9 @@ from kernel.serializers.person import AvatarSerializer
 class MaintainerInfoSerializer(serializers.ModelSerializer):
     """
     """
-
+    
     role = serializers.ReadOnlyField(
-        source='maintainer.role'
+       source='maintainer.role'
     )
     designation = serializers.ReadOnlyField(
         source='maintainer.designation'

@@ -10,7 +10,8 @@ class MaintainerInfoViewSet(viewsets.ModelViewSet):
     """
     A viewset for viewing and editing all the Maintainer's Information
     """
-    
+
+    lookup_field = 'handle'
     serializer_class = MaintainerInfoSerializer
     queryset = MaintainerInformation.objects.all()
     
@@ -20,14 +21,12 @@ class ActiveMaintainerInfoViewSet(MaintainerInfoViewSet):
     """
 
     pagination_class = None
-
     def get_queryset(self):
-        queryset = Maintainer.objects_filter(ActiveStatus.IS_ACTIVE).all()
-        queryset_map = []
-        for obj in queryset:
-            if hasattr(obj, 'maintainerinformation'):
-                queryset_map.append(obj.maintainerinformation)
+        active_maintainers = Maintainer.objects_filter(ActiveStatus.IS_ACTIVE).all()
+        queryset_map = MaintainerInformation.objects.filter(
+            maintainer__in=active_maintainers)
         return queryset_map
+
 
 class InactiveMaintainerInfoViewSet(MaintainerInfoViewSet):
     """
@@ -35,9 +34,7 @@ class InactiveMaintainerInfoViewSet(MaintainerInfoViewSet):
     """
 
     def get_queryset(self):
-        queryset = Maintainer.objects_filter(ActiveStatus.IS_INACTIVE).all()
-        queryset_map = []
-        for obj in queryset:
-            if hasattr(obj, 'maintainerinformation'):
-                queryset_map.append(obj.maintainerinformation)
+        inactive_maintainers = Maintainer.objects_filter(ActiveStatus.IS_INACTIVE).all()
+        queryset_map = MaintainerInformation.objects.filter(
+            maintainer__in=inactive_maintainers)
         return queryset_map
