@@ -13,4 +13,5 @@ class MaintainerGroupSerializer(serializers.ModelSerializer):
         fields = [
             'name',
             'medium_slug',
+            'description',
         ]

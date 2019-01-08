@@ -3,7 +3,7 @@ import json
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-
+from maintainer_site.models import MaintainerGroup
 
 class BlogsView(APIView):
     """
@@ -12,8 +12,10 @@ class BlogsView(APIView):
     def get(self, request, format=None):
         """
         """
-
-        response = requests.get("https://medium.com/img-iit-roorkee/latest/?format=json")
+        
+        group_object = MaintainerGroup.objects.get(pk=1)
+        pub_id = group_object.medium_slug
+        response = requests.get("https://medium.com/"+str(pub_id)+"/latest/?format=json")
         required_data_posts = [
             "id",
             "creatorId",
