@@ -1,6 +1,7 @@
 from rest_framework import routers
 from django.urls import path, include
 from maintainer_site.views.blog import BlogsView
+from maintainer_site.views.maintainer_project import MaintainerProjectView
 from maintainer_site.views.project import ProjectViewSet
 from maintainer_site.views.social_information import SocialInformationView
 from maintainer_site.views.location_information import LocationInformationView
@@ -12,6 +13,7 @@ from maintainer_site.views.logged_maintainer import LoggedMaintainerViewSet
 
 router = routers.SimpleRouter()
 router.register('projects', ProjectViewSet, base_name='project')
+router.register('maintainer_project/(?P<maintainer_id>[^/.]+)', MaintainerProjectView, base_name='maintainer_project')
 router.register('active_maintainer_info', ActiveMaintainerInfoViewSet, base_name='active_maintainer_info')
 router.register('inactive_maintainer_info', InactiveMaintainerInfoViewSet, base_name='inactive_maintainer_info')
 router.register(r'social_link', SocialLinkViewSet, base_name="SocialLink")
