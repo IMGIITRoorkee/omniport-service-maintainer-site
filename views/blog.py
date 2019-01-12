@@ -43,6 +43,7 @@ class BlogsView(APIView):
             user = blogs.get('references').get('User').get(required_content['creatorId'])
             required_content['name'] = user.get('name')
             required_content['authorImageId'] = user.get('imageId')
+            required_content['username'] = user.get('username')
             required_response.append(required_content)
             blog_count += 1
         return Response(required_response)
