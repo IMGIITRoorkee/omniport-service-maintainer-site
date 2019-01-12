@@ -11,7 +11,7 @@ class MaintainerProjectView(viewsets.ModelViewSet):
     """
     
     serializer_class = ProjectSerializer
-
+    pagination_class = None
     def get_queryset(self):
         """
         """
