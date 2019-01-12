@@ -1,5 +1,5 @@
 ANDROID = 'android'
-ANGULAR = 'angular'
+ANGULAR = 'angularjs'
 APPCELERATOR = 'appcelerator'
 BACKBONE = 'backbonejs'
 BOOTSTRAP = 'bootstrap'
@@ -95,7 +95,7 @@ TECH_SKILLS = (
     (JEET, 'Jeet'),
     (JQUERY, 'jQuery'),
     (KRAKEN, 'krakenjs'),
-    (LARAVEL, 'laravel'),
+    (LARVEL, 'laravel'),
     (LESS, 'Less'),
     (METEOR, 'Meteor'),
     (MOCHA, 'Mocha'),
@@ -114,7 +114,7 @@ TECH_SKILLS = (
     (REDUX, 'Redux'),
     (RUBY, 'Ruby'),
     (SASS, 'SASS'),
-    (SEQUELIZER, 'Sequelize'),
+    (SEQUELIZE, 'Sequelize'),
     (SKETCH, 'Sketch'),
     (STYLUS, 'Stylus'),
     (SWIFT, 'Swift'),

@@ -10,6 +10,7 @@ from maintainer_site.views.maintainer_group import MaintainerGroupView
 from maintainer_site.views.maintainer_info import ActiveMaintainerInfoViewSet,MaintainerInfoViewSet,InactiveMaintainerInfoViewSet
 from maintainer_site.views.social_link import SocialLinkViewSet
 from maintainer_site.views.logged_maintainer import LoggedMaintainerViewSet
+from maintainer_site.views.tech_skills import TechSkillsView
 
 router = routers.SimpleRouter()
 router.register('projects', ProjectViewSet, base_name='project')
@@ -20,6 +21,7 @@ router.register(r'social_link', SocialLinkViewSet, base_name="SocialLink")
 router.register('logged_maintainer', LoggedMaintainerViewSet, base_name="LoggedMaintainer") 
 urlpatterns = [
         path('blogs/', BlogsView.as_view()),
+        path('tech_skills/', TechSkillsView.as_view()),
         path('social/', SocialInformationView.as_view()),
         path('location/', LocationInformationView.as_view()),
         path('contact/', ContactInformationView.as_view()),
