@@ -1,4 +1,4 @@
-from kernel.admin.site import omnipotence
+from omniport.admin.site import omnipotence
 from django.contrib import admin
 
 from maintainer_site.models import (
