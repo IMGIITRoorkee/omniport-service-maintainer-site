@@ -31,7 +31,12 @@ class MaintainerInformation(Model):
     dank_image = models.ImageField(
         upload_to=UploadTo('maintainer_site', 'dank_image'),
     )
+    technical_skills = ArrayField(
+        models.CharField(max_length=63, blank=True),
+    )
 
+
+    """
     favourite_music = ArrayField(
         models.CharField(max_length=63, blank=True),
         size=5,
@@ -48,14 +53,11 @@ class MaintainerInformation(Model):
         models.CharField(max_length=63, blank=True),
         size=5,
     )
-    technical_skills = ArrayField(
+        favourite_games = ArrayField(
         models.CharField(max_length=63, blank=True),
         size=5,
     )
-    favourite_games = ArrayField(
-        models.CharField(max_length=63, blank=True),
-        size=5,
-    )
+    """
 
     class Meta:
         """

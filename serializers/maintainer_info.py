@@ -3,7 +3,7 @@ from maintainer_site.models.maintainer_info import MaintainerInformation
 
 from kernel.serializers.generics.social_information import SocialInformationSerializer
 from kernel.serializers.person import AvatarSerializer
-from kernel.serializers.roles.maintainers import MaintainerSerializer
+from kernel.serializers.roles.maintainer import MaintainerSerializer
 
 class MaintainerInfoSerializer(serializers.ModelSerializer):
     """

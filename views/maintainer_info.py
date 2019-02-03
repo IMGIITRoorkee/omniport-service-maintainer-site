@@ -21,6 +21,7 @@ class ActiveMaintainerInfoViewSet(MaintainerInfoViewSet):
     """
 
     pagination_class = None
+
     def get_queryset(self):
         active_maintainers = Maintainer.objects_filter(ActiveStatus.IS_ACTIVE).all()
         queryset_map = MaintainerInformation.objects.filter(
@@ -32,6 +33,8 @@ class InactiveMaintainerInfoViewSet(MaintainerInfoViewSet):
     """
     A viewset for viewing and editing all the inactive Maintainer's Information
     """
+
+    pagination_class=None
 
     def get_queryset(self):
         inactive_maintainers = Maintainer.objects_filter(ActiveStatus.IS_INACTIVE).all()
