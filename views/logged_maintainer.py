@@ -5,12 +5,17 @@ from maintainer_site.models.maintainer_info import MaintainerInformation
 from kernel.managers.get_role import get_role
 from kernel.permissions.has_role import get_has_role
 from rest_framework.response import Response
+from kernel.mixins.period_mixin import ActiveStatus
+
 
 class LoggedMaintainerViewSet(ModelViewSet):
     """
     API endpoint that allows MaintainerInfo Model to be viewed or edited.
     """
-    permission_classes = (get_has_role('Maintainer'), )
+    permission_classes = (
+        get_has_role('Maintainer',ActiveStatus.IS_ACTIVE) | 
+        get_has_role('Maintainer',ActiveStatus.HAS_BEEN_ACTIVE),
+    )
     serializer_class = MaintainerInfoSerializer
     pagination_class = None
 

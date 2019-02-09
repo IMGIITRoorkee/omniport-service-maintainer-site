@@ -4,6 +4,7 @@ from maintainer_site.models.project import Project
 from rest_framework import permissions
 from rest_framework.permissions import BasePermission, IsAuthenticated
 from kernel.permissions.has_role import get_has_role
+from kernel.mixins.period_mixin import ActiveStatus
 
 
 
@@ -16,7 +17,11 @@ class ProjectViewSet(viewsets.ModelViewSet):
     API endpoint allows ProjectModel to be viewed or edited
     """
    
-    permission_classes = (get_has_role('Maintainer')|ReadOnly,)
+    permission_classes = (
+        get_has_role('Maintainer',ActiveStatus.IS_ACTIVE) | 
+        get_has_role('Maintainer',ActiveStatus.HAS_BEEN_ACTIVE) | 
+        ReadOnly,
+        )
     serializer_class = ProjectSerializer
     queryset = Project.objects.all().order_by('-datetime_created')
     

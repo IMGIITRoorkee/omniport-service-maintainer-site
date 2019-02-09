@@ -34,7 +34,7 @@ class InactiveMaintainerInfoViewSet(MaintainerInfoViewSet):
     A viewset for viewing and editing all the inactive Maintainer's Information
     """
 
-    pagination_class=None
+    pagination_size = 12
 
     def get_queryset(self):
         inactive_maintainers = Maintainer.objects_filter(ActiveStatus.IS_INACTIVE).all()

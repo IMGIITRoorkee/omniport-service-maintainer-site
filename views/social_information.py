@@ -13,3 +13,4 @@ class SocialInformationView(generics.RetrieveAPIView):
             return MaintainerGroup.objects.get(pk=1).social_information.all()[0]
         except IndexError:
             raise Http404
+
