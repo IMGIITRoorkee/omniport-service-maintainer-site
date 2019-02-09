@@ -31,10 +31,10 @@ class MaintainerInformation(Model):
     dank_image = models.ImageField(
         upload_to=UploadTo('maintainer_site', 'dank_image'),
     )
-    technical_skills = ArrayField(
-        models.CharField(max_length=63, blank=True),
+    technical_skills = models.TextField(
+        null=True,
     )
-
+    
 
     """
     favourite_music = ArrayField(
