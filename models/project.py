@@ -3,8 +3,8 @@ from tinymce.models import HTMLField
 
 from django.db import models
 
-from kernel.models.root import Model
-from kernel.utils.upload_to import UploadTo
+from formula_one.models.base import Model
+from formula_one.utils.upload_to import UploadTo
 
 
 class Project(Model):

@@ -1,6 +1,3 @@
-from django.apps import AppConfig
+from configuration.utils.app_config_class import get_app_config_class
 
-
-class MaintainerSiteConfig(AppConfig):
-    name = 'maintainer_site'
-    verbose_name = 'Maintainer site'
+Config = get_app_config_class(__file__)

@@ -3,7 +3,7 @@ from django.http import Http404
 from rest_framework import generics
 
 from maintainer_site.models.maintainer_group import MaintainerGroup
-from kernel.serializers.generics.contact_information import ContactInformationSerializer
+from formula_one.serializers.generics.contact_information import ContactInformationSerializer
 
 class ContactInformationView(generics.RetrieveAPIView):
     serializer_class = ContactInformationSerializer

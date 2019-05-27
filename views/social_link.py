@@ -1,11 +1,11 @@
 import swapper
 from rest_framework.viewsets import ModelViewSet
 from maintainer_site.serializers.social_link import SocialLinkSerializer
-from kernel.models.generics.social_information import SocialLink
+from formula_one.models.generics.social_information import SocialLink
 from kernel.managers.get_role import get_role
 from kernel.permissions.has_role import get_has_role
 from rest_framework.response import Response
-from kernel.mixins.period_mixin import ActiveStatus
+from formula_one.mixins.period_mixin import ActiveStatus
 
 
 class SocialLinkViewSet(ModelViewSet):

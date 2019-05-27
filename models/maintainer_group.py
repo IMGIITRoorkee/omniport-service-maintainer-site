@@ -5,8 +5,8 @@ from django.contrib.contenttypes import fields as contenttypes_fields
 from django.conf import settings
 from django.db import models
 
-from kernel.models.root import Model
-from kernel.utils.upload_to import UploadTo
+from formula_one.models.base import Model
+from formula_one.utils.upload_to import UploadTo
 
 
 class MaintainerGroup(Model):
@@ -33,19 +33,19 @@ class MaintainerGroup(Model):
     )
 
     contact_information = contenttypes_fields.GenericRelation(
-        to='kernel.ContactInformation',
+        to='formula_one.ContactInformation',
         related_query_name='maintainer_group',
         content_type_field='entity_content_type',
         object_id_field='entity_object_id',
     )
     social_information = contenttypes_fields.GenericRelation(
-        to='kernel.SocialInformation',
+        to='formula_one.SocialInformation',
         related_query_name='maintainer_group',
         content_type_field='entity_content_type',
         object_id_field='entity_object_id',
     )
     location_information = contenttypes_fields.GenericRelation(
-        to='kernel.LocationInformation',
+        to='formula_one.LocationInformation',
         related_query_name='maintainer_group',
         content_type_field='entity_content_type',
         object_id_field='entity_object_id',

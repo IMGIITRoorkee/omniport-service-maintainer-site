@@ -5,7 +5,7 @@ from maintainer_site.models.maintainer_info import MaintainerInformation
 from kernel.managers.get_role import get_role
 from kernel.permissions.has_role import get_has_role
 from rest_framework.response import Response
-from kernel.mixins.period_mixin import ActiveStatus
+from formula_one.mixins.period_mixin import ActiveStatus
 
 
 class LoggedMaintainerViewSet(ModelViewSet):

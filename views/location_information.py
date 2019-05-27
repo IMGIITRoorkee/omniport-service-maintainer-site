@@ -3,7 +3,7 @@ from django.http import Http404
 from rest_framework import generics
 
 from maintainer_site.models.maintainer_group import MaintainerGroup
-from kernel.serializers.generics.location_information import LocationInformationSerializer
+from formula_one.serializers.generics.location_information import LocationInformationSerializer
 
 class LocationInformationView(generics.RetrieveAPIView):
     serializer_class = LocationInformationSerializer

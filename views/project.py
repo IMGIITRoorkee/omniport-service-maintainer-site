@@ -4,7 +4,7 @@ from maintainer_site.models.project import Project
 from rest_framework import permissions
 from rest_framework.permissions import BasePermission, IsAuthenticated
 from kernel.permissions.has_role import get_has_role
-from kernel.mixins.period_mixin import ActiveStatus
+from formula_one.mixins.period_mixin import ActiveStatus
 
 
 

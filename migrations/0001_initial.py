@@ -3,7 +3,7 @@
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
-import kernel.utils.upload_to
+import formula_one.utils.upload_to
 import tinymce.models
 
 
@@ -39,8 +39,8 @@ class Migration(migrations.Migration):
                 ('datetime_modified', models.DateTimeField(auto_now=True)),
                 ('handle', models.SlugField(primary_key=True, serialize=False)),
                 ('short_biography', models.TextField(max_length=255)),
-                ('normie_image', models.ImageField(upload_to=kernel.utils.upload_to.UploadTo('maintainer_site', 'normie_image'))),
-                ('dank_image', models.ImageField(upload_to=kernel.utils.upload_to.UploadTo('maintainer_site', 'dank_image'))),
+                ('normie_image', models.ImageField(upload_to=formula_one.utils.upload_to.UploadTo('maintainer_site', 'normie_image'))),
+                ('dank_image', models.ImageField(upload_to=formula_one.utils.upload_to.UploadTo('maintainer_site', 'dank_image'))),
                 ('technical_skills', models.TextField(null=True)),
                 ('maintainer', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.KERNEL_MAINTAINER_MODEL)),
             ],
@@ -57,7 +57,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=127, unique=True)),
                 ('short_description', models.TextField(blank=True, max_length=255)),
                 ('long_description', tinymce.models.HTMLField()),
-                ('image', models.ImageField(upload_to=kernel.utils.upload_to.UploadTo('maintainer_site', 'projects'))),
+                ('image', models.ImageField(upload_to=formula_one.utils.upload_to.UploadTo('maintainer_site', 'projects'))),
                 ('members', models.ManyToManyField(to=settings.KERNEL_MAINTAINER_MODEL)),
             ],
             options={

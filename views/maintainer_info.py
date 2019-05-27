@@ -2,7 +2,7 @@ import swapper
 from rest_framework import viewsets
 from maintainer_site.serializers.maintainer_info import MaintainerInfoSerializer
 from maintainer_site.models.maintainer_info import MaintainerInformation
-from kernel.enums.active_status import ActiveStatus
+from formula_one.enums.active_status import ActiveStatus
 
 Maintainer = swapper.load_model('kernel', 'Maintainer')
 
