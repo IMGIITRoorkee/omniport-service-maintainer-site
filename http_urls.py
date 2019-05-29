@@ -10,14 +10,16 @@ from maintainer_site.views.maintainer_group import MaintainerGroupView
 from maintainer_site.views.maintainer_info import ActiveMaintainerInfoViewSet,MaintainerInfoViewSet,InactiveMaintainerInfoViewSet
 from maintainer_site.views.social_link import SocialLinkViewSet
 from maintainer_site.views.logged_maintainer import LoggedMaintainerViewSet
+from maintainer_site.views.hit import HitViewSet
 
 router = routers.SimpleRouter()
 router.register('projects', ProjectViewSet, base_name='project')
 router.register('maintainer_project/(?P<maintainer_id>[^/.]+)', MaintainerProjectView, base_name='maintainer_project')
 router.register('active_maintainer_info', ActiveMaintainerInfoViewSet, base_name='active_maintainer_info')
 router.register('inactive_maintainer_info', InactiveMaintainerInfoViewSet, base_name='inactive_maintainer_info')
-router.register(r'social_link', SocialLinkViewSet, base_name="SocialLink")
-router.register('logged_maintainer', LoggedMaintainerViewSet, base_name="LoggedMaintainer") 
+router.register('social_link', SocialLinkViewSet, base_name="SocialLink")
+router.register('logged_maintainer', LoggedMaintainerViewSet, base_name="LoggedMaintainer")
+router.register('hit', HitViewSet, base_name='Hit')
 urlpatterns = [
         path('blogs/', BlogsView.as_view()),
         path('social/', SocialInformationView.as_view()),
