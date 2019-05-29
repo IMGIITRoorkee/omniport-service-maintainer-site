@@ -14,4 +14,7 @@ class SocialLinkSerializer(serializers.ModelSerializer):
         """
 
         model = SocialLink
-        exclude = ('datetime_created','datetime_modified')
+        exclude = [
+            'datetime_created',
+            'datetime_modified',
+        ]
