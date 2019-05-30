@@ -12,7 +12,6 @@ class TechSkillsView(APIView):
     def get(self, request, format=None):
         """
         """
-        print("teri ")
         with open('services/maintainer_site/static/maintainer_site/devicon/devicon.json') as directory:
             devicons = json.load(directory)
         print(devicons)

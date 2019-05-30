@@ -14,7 +14,7 @@ from maintainer_site.views.hit import HitViewSet
 
 router = routers.SimpleRouter()
 router.register('projects', ProjectViewSet, base_name='project')
-router.register('maintainer_project/(?P<maintainer_id>[^/.]+)', MaintainerProjectView, base_name='maintainer_project')
+router.register(r'maintainer_project/(?P<maintainer_id>[^/.]+)', MaintainerProjectView, base_name='maintainer_project')
 router.register('active_maintainer_info', ActiveMaintainerInfoViewSet, base_name='active_maintainer_info')
 router.register('inactive_maintainer_info', InactiveMaintainerInfoViewSet, base_name='inactive_maintainer_info')
 router.register('social_link', SocialLinkViewSet, base_name="SocialLink")

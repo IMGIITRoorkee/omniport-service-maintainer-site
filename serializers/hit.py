@@ -27,3 +27,4 @@ class HitSerializer(serializers.ModelSerializer):
             'maintainer_information',
             'views',
         ]
+        read_only_fields = ['views']

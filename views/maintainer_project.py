@@ -7,7 +7,7 @@ from maintainer_site.models import Project
 
 class MaintainerProjectView(viewsets.ModelViewSet):
     """
-    A viewset fro viewing all the Projects of the current maintainer
+    A viewset for viewing all the Projects of the current maintainer
     """
     
     serializer_class = ProjectSerializer
