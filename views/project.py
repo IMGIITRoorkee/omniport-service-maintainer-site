@@ -10,22 +10,37 @@ from maintainer_site.models.project import Project
 
 
 class ReadOnly(BasePermission):
+    """
+    Permits only safe HTTP methods for accessing the endpoint
+    """
+
     def has_permission(self, request, view):
+        """
+        Return if the method is allowed or not
+        :return: if the method is allowed or not
+        """
+
         return request.method in permissions.SAFE_METHODS
+
 
 class ProjectViewSet(viewsets.ModelViewSet):
     """
     API endpoint allows ProjectModel to be viewed or edited
     """
-   
+
     permission_classes = (
-        get_has_role('Maintainer',ActiveStatus.IS_ACTIVE) | 
-        get_has_role('Maintainer',ActiveStatus.HAS_BEEN_ACTIVE) | 
+        get_has_role('Maintainer', ActiveStatus.IS_ACTIVE) |
+        get_has_role('Maintainer', ActiveStatus.HAS_BEEN_ACTIVE) |
         ReadOnly,
     )
     serializer_class = ProjectSerializer
     queryset = Project.objects.all().order_by('-datetime_created')
-    
+
     def list(self, request, *args, **kwargs):
+        """
+        Return list of projects
+        :return: list of projects
+        """
+
         self.pagination_class.page_size = 12
         return super().list(request, *args, **kwargs)

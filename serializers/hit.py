@@ -6,6 +6,7 @@ from maintainer_site.models import Hit
 
 MaintainerSerializer = switcher.load_serializer('kernel', 'Maintainer')
 
+
 class HitSerializer(serializers.ModelSerializer):
     """
     Serializer for hit model

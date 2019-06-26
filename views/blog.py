@@ -3,19 +3,27 @@ import json
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
+
 from maintainer_site.models import MaintainerGroup
+
 
 class BlogsView(APIView):
     """
+    This view shows the list of all blogs published by the mainatainer group on
+    Medium
     """
 
     def get(self, request, format=None):
         """
+        Return the sanitized response of blogs fetched from Medium API
+        :return: the sanitized response of blogs fetched from Medium API
         """
-        
+
         group_object = MaintainerGroup.objects.get(pk=1)
         pub_id = group_object.medium_slug
-        response = requests.get("https://medium.com/"+str(pub_id)+"/latest/?format=json")
+        response = requests.get(
+            "https://medium.com/"+str(pub_id)+"/latest/?format=json"
+        )
         required_data_posts = [
             "id",
             "creatorId",
@@ -39,8 +47,10 @@ class BlogsView(APIView):
             for j in required_data_posts:
                 required_content[j] = blog.get(j)
                 if (not required_content[j]):
-                    required_content[j] = blog.get('virtuals').get(j) or blog.get('virtuals').get('previewImage').get(j)
-            user = blogs.get('references').get('User').get(required_content['creatorId'])
+                    required_content[j] = blog.get('virtuals').get(j) or \
+                        blog.get('virtuals').get('previewImage').get(j)
+            user = blogs.get('references').get('User') \
+                .get(required_content['creatorId'])
             required_content['name'] = user.get('name')
             required_content['authorImageId'] = user.get('imageId')
             required_content['username'] = user.get('username')

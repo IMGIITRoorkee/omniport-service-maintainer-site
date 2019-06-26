@@ -23,17 +23,17 @@ class HitViewSet(ModelViewSet):
     def get_permissions(self):
         if self.action == 'list' or self.action == 'retrieve':
             permission_classes = (
-                get_has_role('Maintainer',ActiveStatus.IS_ACTIVE) | 
-                get_has_role('Maintainer',ActiveStatus.HAS_BEEN_ACTIVE),
+                get_has_role('Maintainer', ActiveStatus.IS_ACTIVE) |
+                get_has_role('Maintainer', ActiveStatus.HAS_BEEN_ACTIVE),
             )
         else:
             permission_classes = ()
         return [permission() for permission in permission_classes]
-    
+
     def list(self, request, *args, **kwargs):
         self.pagination_class.page_size = 12
         return super().list(request, *args, **kwargs)
-    
+
     def update(self, request, *args, **kwargs):
         """
         Increments profile view of a maintainer by 1

@@ -5,7 +5,7 @@ from maintainer_site.models import MaintainerGroup
 
 class MaintainerGroupSerializer(serializers.ModelSerializer):
     """
-    Serializer class for MaintainerGroup
+    Serializer for maintainer group model
     """
 
     class Meta:

@@ -1,1 +1,0 @@
-from maintainer_site.serializers.project import ProjectSerializer

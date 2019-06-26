@@ -1,6 +1,5 @@
 import swapper
 from tinymce.models import HTMLField
-
 from django.db import models
 
 from formula_one.models.base import Model

@@ -11,9 +11,10 @@ from formula_one.utils.upload_to import UploadTo
 
 class MaintainerGroup(Model):
     """
-    This model holds the information of the maintainer group like contact information,address,etc.
+    This model holds the information of the maintainer group like contact
+    information,address,etc.
     """
-    
+
     name = models.CharField(
         max_length=127,
     )
@@ -53,15 +54,15 @@ class MaintainerGroup(Model):
 
     def save(self, *args, **kwargs):
         """
-        saves the new object on the existing maintainerGroup object
+        Save the new object on the existing MaintainerGroup object
         """
-        
+
         self.pk = 1
         self.datetime_created = datetime.datetime.now()
         self.name = settings.MAINTAINERS.text.name
         self.homepage = settings.MAINTAINERS.text.home_page or ''
         self.acronym = settings.MAINTAINERS.text.acronym or ''
-        
+
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -71,5 +72,3 @@ class MaintainerGroup(Model):
         """
 
         return self.name
-
-

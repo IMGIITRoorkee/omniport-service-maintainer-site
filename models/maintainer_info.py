@@ -1,10 +1,10 @@
-import swapper
 import datetime
-
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
+
+import swapper
 from formula_one.models.base import Model
 from formula_one.utils.upload_to import UploadTo
-from django.contrib.postgres.fields import ArrayField
 
 
 class MaintainerInformation(Model):
@@ -34,7 +34,6 @@ class MaintainerInformation(Model):
     technical_skills = models.TextField(
         null=True,
     )
-    
 
     """
     favourite_music = ArrayField(
