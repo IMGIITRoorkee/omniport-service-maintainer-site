@@ -1,6 +1,6 @@
 from rest_framework import routers
 from django.urls import path, include
-from maintainer_site.views.blog import BlogsView
+from maintainer_site.views.blog import BlogView
 from maintainer_site.views.maintainer_project import MaintainerProjectView
 from maintainer_site.views.project import ProjectViewSet
 from maintainer_site.views.social_information import SocialInformationView
@@ -42,7 +42,7 @@ router.register(
 router.register('hit', HitViewSet, base_name='Hit')
 
 urlpatterns = [
-        path('blogs/', BlogsView.as_view()),
+        path('blog/', BlogView.as_view()),
         path('social/', SocialInformationView.as_view()),
         path('location/', LocationInformationView.as_view()),
         path('contact/', ContactInformationView.as_view()),

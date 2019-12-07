@@ -7,53 +7,40 @@ from rest_framework.response import Response
 from maintainer_site.models import MaintainerGroup
 
 
-class BlogsView(APIView):
+class BlogView(APIView):
     """
-    This view shows the list of all blogs published by the mainatainer group on
-    Medium
+    This view shows the list of blog published by the mainatainer group on
+    Medium.
     """
 
     def get(self, request, format=None):
         """
-        Return the sanitized response of blogs fetched from Medium API
-        :return: the sanitized response of blogs fetched from Medium API
+        Return the sanitized response of blog fetched from Medium API
+        :return: the sanitized response of blog fetched from Medium API
         """
 
         group_object = MaintainerGroup.objects.get(pk=1)
         pub_id = group_object.medium_slug
-        response = requests.get(
-            "https://medium.com/"+str(pub_id)+"/latest/?format=json"
+        url = (
+            "https://api.rss2json.com/v1/api.json?rss_url="
+            f"https://medium.com/feed/{pub_id}"
         )
+        response = requests.get(url)
         required_data_posts = [
-            "id",
-            "creatorId",
+            "author",
             "title",
-            "createdAt",
-            "slug",
-            "subtitle",
-            "imageId",
-            "readingTime",
+            "pubDate",
+            "link",
+            "thumbnail",
         ]
-        required_response = []
-        content = response.content
-        text = content[16:]
-        blogs = json.loads(text).get('payload')
-        blog_count = 0
-        total_blog = 6
-        for blog in blogs.get('posts'):
-            if (blog_count == total_blog):
-                break
-            required_content = {}
-            for j in required_data_posts:
-                required_content[j] = blog.get(j)
-                if (not required_content[j]):
-                    required_content[j] = blog.get('virtuals').get(j) or \
-                        blog.get('virtuals').get('previewImage').get(j)
-            user = blogs.get('references').get('User') \
-                .get(required_content['creatorId'])
-            required_content['name'] = user.get('name')
-            required_content['authorImageId'] = user.get('imageId')
-            required_content['username'] = user.get('username')
-            required_response.append(required_content)
-            blog_count += 1
-        return Response(required_response)
+        sanitized_response = []
+        blog_list = json.loads(response.content).get("items")
+        max_blog_count = 6
+        required_blog_list = blog_list[:max_blog_count]
+        for blog in required_blog_list:
+            sanitized_content = {}
+            for item in required_data_posts:
+                sanitized_content[item] = blog.get(item)
+            sanitized_response.append(sanitized_content)
+
+        return Response(sanitized_response)
