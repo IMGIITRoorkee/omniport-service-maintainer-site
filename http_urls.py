@@ -17,29 +17,29 @@ from maintainer_site.views.logged_maintainer import LoggedMaintainerViewSet
 from maintainer_site.views.hit import HitViewSet
 
 router = routers.SimpleRouter()
-router.register('projects', ProjectViewSet, base_name='project')
+router.register('projects', ProjectViewSet, basename='project')
 router.register(
     r'maintainer_project/(?P<maintainer_id>[^/.]+)',
     MaintainerProjectView,
-    base_name='maintainer_project',
+    basename='maintainer_project',
 )
 router.register(
     'active_maintainer_info',
     ActiveMaintainerInfoViewSet,
-    base_name='active_maintainer_info',
+    basename='active_maintainer_info',
 )
 router.register(
     'inactive_maintainer_info',
     InactiveMaintainerInfoViewSet,
-    base_name='inactive_maintainer_info',
+    basename='inactive_maintainer_info',
 )
-router.register('social_link', SocialLinkViewSet, base_name="SocialLink")
+router.register('social_link', SocialLinkViewSet, basename="SocialLink")
 router.register(
     'logged_maintainer',
     LoggedMaintainerViewSet,
-    base_name="LoggedMaintainer",
+    basename="LoggedMaintainer",
 )
-router.register('hit', HitViewSet, base_name='Hit')
+router.register('hit', HitViewSet, basename='Hit')
 
 urlpatterns = [
         path('blog/', BlogView.as_view()),
