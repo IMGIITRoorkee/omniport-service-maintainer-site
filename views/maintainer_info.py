@@ -35,11 +35,17 @@ class ActiveMaintainerInfoViewSet(MaintainerInfoViewSet):
         """
 
         active_maintainers = Maintainer.objects_filter(
-            ActiveStatus.IS_ACTIVE
+            ActiveStatus.IS_ACTIVE,
         ).all()
         queryset_map = MaintainerInformation.objects.filter(
-            maintainer__in=active_maintainers)
-        return queryset_map
+            maintainer__in=active_maintainers,
+        )
+        ordered_queryset = queryset_map.order_by(
+            '-maintainer__person__student__current_year',
+            '-maintainer__person__student__current_semester',
+            'maintainer__person__full_name',
+        )
+        return ordered_queryset
 
 
 class InactiveMaintainerInfoViewSet(MaintainerInfoViewSet):
@@ -55,8 +61,13 @@ class InactiveMaintainerInfoViewSet(MaintainerInfoViewSet):
         :return: queryset of inactive maintainers
         """
         inactive_maintainers = Maintainer.objects_filter(
-            ActiveStatus.IS_INACTIVE
+            ActiveStatus.IS_INACTIVE,
         ).all()
         queryset_map = MaintainerInformation.objects.filter(
-            maintainer__in=inactive_maintainers)
-        return queryset_map
+            maintainer__in=inactive_maintainers,
+        )
+        ordered_queryset = queryset_map.order_by(
+            '-maintainer__end_date',
+            'maintainer__person__full_name',
+        )
+        return ordered_queryset
