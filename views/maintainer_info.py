@@ -24,6 +24,7 @@ class MaintainerInfoViewSet(viewsets.ModelViewSet):
 class ActiveMaintainerInfoViewSet(MaintainerInfoViewSet):
     """
     A viewset for viewing and editing all the active Maintainer's Information
+    and those who will be active in future
     """
 
     pagination_class = None
@@ -35,7 +36,7 @@ class ActiveMaintainerInfoViewSet(MaintainerInfoViewSet):
         """
 
         active_maintainers = Maintainer.objects_filter(
-            ActiveStatus.IS_ACTIVE,
+            ActiveStatus.IS_ACTIVE | ActiveStatus.WILL_BE_ACTIVE,
         ).all()
         queryset_map = MaintainerInformation.objects.filter(
             maintainer__in=active_maintainers,
@@ -50,7 +51,8 @@ class ActiveMaintainerInfoViewSet(MaintainerInfoViewSet):
 
 class InactiveMaintainerInfoViewSet(MaintainerInfoViewSet):
     """
-    A viewset for viewing and editing all the inactive Maintainer's Information
+    A viewset for viewing and editing all the Maintainer's Information who
+    were active
     """
 
     pagination_size = 12
@@ -61,7 +63,7 @@ class InactiveMaintainerInfoViewSet(MaintainerInfoViewSet):
         :return: queryset of inactive maintainers
         """
         inactive_maintainers = Maintainer.objects_filter(
-            ActiveStatus.IS_INACTIVE,
+            ActiveStatus.HAS_BEEN_ACTIVE,
         ).all()
         queryset_map = MaintainerInformation.objects.filter(
             maintainer__in=inactive_maintainers,
