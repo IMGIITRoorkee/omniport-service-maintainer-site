@@ -27,8 +27,6 @@ class ProjectViewSet(viewsets.ModelViewSet):
         permission_classes = []
         if self.request.method not in SAFE_METHODS:
             permission_classes = [
-                IsAuthenticated &
-                (get_has_role('Maintainer', ActiveStatus.IS_ACTIVE) |
-                get_has_role('Maintainer', ActiveStatus.HAS_BEEN_ACTIVE))
+                IsAuthenticated & get_has_role('Maintainer', ActiveStatus.ANY)
             ]
         return [permission() for permission in permission_classes]

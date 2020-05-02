@@ -1,5 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 import swapper
 from kernel.managers.get_role import get_role
@@ -14,10 +15,10 @@ class SocialLinkViewSet(ModelViewSet):
     """
     API endpoint that allows SocialLink Model to be viewed or edited.
     """
-    permission_classes = (
-        get_has_role('Maintainer', ActiveStatus.IS_ACTIVE) |
-        get_has_role('Maintainer', ActiveStatus.HAS_BEEN_ACTIVE),
-    )
+
+    permission_classes = [
+        IsAuthenticated & get_has_role('Maintainer', ActiveStatus.ANY)
+    ]
     serializer_class = SocialLinkSerializer
     pagination_class = None
 

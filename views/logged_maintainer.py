@@ -19,9 +19,7 @@ class LoggedMaintainerViewSet(ModelViewSet):
     """
 
     permission_classes = [
-        IsAuthenticated &
-        (get_has_role('Maintainer', ActiveStatus.IS_ACTIVE) |
-        get_has_role('Maintainer', ActiveStatus.HAS_BEEN_ACTIVE))
+        IsAuthenticated & get_has_role('Maintainer', ActiveStatus.ANY)
     ]
     serializer_class = MaintainerInfoSerializer
     pagination_class = None
