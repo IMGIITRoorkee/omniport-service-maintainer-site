@@ -1,6 +1,7 @@
 import swapper
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.permissions import IsAuthenticated
 
 from kernel.managers.get_role import get_role
 from kernel.permissions.has_role import get_has_role
@@ -17,10 +18,11 @@ class LoggedMaintainerViewSet(ModelViewSet):
     API endpoint that checks if a maintainer is authenticated
     """
 
-    permission_classes = (
-        get_has_role('Maintainer', ActiveStatus.IS_ACTIVE) |
-        get_has_role('Maintainer', ActiveStatus.HAS_BEEN_ACTIVE),
-    )
+    permission_classes = [
+        IsAuthenticated &
+        (get_has_role('Maintainer', ActiveStatus.IS_ACTIVE) |
+        get_has_role('Maintainer', ActiveStatus.HAS_BEEN_ACTIVE))
+    ]
     serializer_class = MaintainerInfoSerializer
     pagination_class = None
 
