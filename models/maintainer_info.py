@@ -6,6 +6,8 @@ import swapper
 from formula_one.models.base import Model
 from formula_one.utils.upload_to import UploadTo
 
+from maintainer_site.apps import Config
+
 
 class MaintainerInformation(Model):
     """
@@ -26,10 +28,10 @@ class MaintainerInformation(Model):
     )
 
     normie_image = models.ImageField(
-        upload_to=UploadTo('maintainer_site', 'normie_image'),
+        upload_to=UploadTo(Config.name, 'normie_image'),
     )
     dank_image = models.ImageField(
-        upload_to=UploadTo('maintainer_site', 'dank_image'),
+        upload_to=UploadTo(Config.name, 'dank_image'),
     )
     technical_skills = models.TextField(
         null=True,

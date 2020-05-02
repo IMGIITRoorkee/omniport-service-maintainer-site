@@ -5,6 +5,8 @@ from django.db import models
 from formula_one.models.base import Model
 from formula_one.utils.upload_to import UploadTo
 
+from maintainer_site.apps import Config
+
 
 class Project(Model):
     """
@@ -32,7 +34,7 @@ class Project(Model):
     long_description = HTMLField()
 
     image = models.ImageField(
-        upload_to=UploadTo('maintainer_site', 'projects'),
+        upload_to=UploadTo(Config.name, 'projects'),
     )
 
     def __str__(self):

@@ -15,6 +15,7 @@ from maintainer_site.views.maintainer_info import (
 from maintainer_site.views.social_link import SocialLinkViewSet
 from maintainer_site.views.logged_maintainer import LoggedMaintainerViewSet
 from maintainer_site.views.hit import HitViewSet
+from maintainer_site.views.personal_to_media import PersonalToMedia
 
 router = routers.SimpleRouter()
 router.register('projects', ProjectViewSet, basename='project')
@@ -47,5 +48,6 @@ urlpatterns = [
         path('location/', LocationInformationView.as_view()),
         path('contact/', ContactInformationView.as_view()),
         path('maintainer_group/', MaintainerGroupView.as_view()),
+        path('personal_to_media/', PersonalToMedia.as_view()),
         path('', include(router.urls)),
 ]

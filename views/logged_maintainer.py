@@ -1,7 +1,7 @@
+import swapper
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-import swapper
 from kernel.managers.get_role import get_role
 from kernel.permissions.has_role import get_has_role
 from formula_one.mixins.period_mixin import ActiveStatus
