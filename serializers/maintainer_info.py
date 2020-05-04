@@ -6,6 +6,7 @@ from kernel.serializers.roles.maintainer import MaintainerSerializer
 from formula_one.serializers.generics.social_information import (
     SocialInformationSerializer,
 )
+from formula_one.mixins.period_mixin import ActiveStatus
 
 
 class MaintainerInfoSerializer(serializers.ModelSerializer):
@@ -21,6 +22,16 @@ class MaintainerInfoSerializer(serializers.ModelSerializer):
         many=True,
         read_only=True,
     )
+    is_alumni = serializers.SerializerMethodField()
+
+    def get_is_alumni(self, obj):
+        """
+        Returns whether the maintainer is an alumni
+        :returns: whether the maintainer is an alumni
+        """
+
+        active_status = obj.maintainer.active_status
+        return active_status == ActiveStatus.HAS_BEEN_ACTIVE
 
     class Meta:
         """
