@@ -36,7 +36,10 @@ class BlogView(APIView):
         sanitized_response = []
         blog_list = json.loads(response.content).get("items")
         max_blog_count = 6
-        required_blog_list = blog_list[:max_blog_count]
+        if response.status_code == 200:
+            required_blog_list = blog_list[:max_blog_count]
+        else:
+            required_blog_list = []
         for blog in required_blog_list:
             sanitized_content = {}
             for item in required_data_posts:
