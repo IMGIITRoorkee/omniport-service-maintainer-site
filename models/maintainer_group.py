@@ -31,8 +31,8 @@ class MaintainerGroup(Model):
     medium_slug = models.CharField(
         max_length=63,
         blank=True,
+        null = True,
     )
-
     contact_information = contenttypes_fields.GenericRelation(
         to='formula_one.ContactInformation',
         related_query_name='maintainer_group',
