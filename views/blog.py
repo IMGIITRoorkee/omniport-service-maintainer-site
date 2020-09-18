@@ -1,6 +1,7 @@
 import requests
 import json
 
+from django.http import HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -40,7 +41,7 @@ class BlogView(APIView):
         if response.status_code == 200:
             required_blog_list = blog_list[:max_blog_count]
         else:
-            return Response({'message': 'No Content'},status = status.HTTP_204_NO_CONTENT)
+            return Response(status = status.HTTP_204_NO_CONTENT)
         for blog in required_blog_list:
             sanitized_content = {}
             for item in required_data_posts:
