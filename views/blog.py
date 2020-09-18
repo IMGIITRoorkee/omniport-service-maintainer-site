@@ -41,7 +41,7 @@ class BlogView(APIView):
         if response.status_code == 200:
             required_blog_list = blog_list[:max_blog_count]
         else:
-            return Response(status = status.HTTP_204_NO_CONTENT)
+            return Response(status=status.HTTP_204_NO_CONTENT)
         for blog in required_blog_list:
             sanitized_content = {}
             for item in required_data_posts:
