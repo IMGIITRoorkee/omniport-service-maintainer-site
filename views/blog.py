@@ -3,6 +3,7 @@ import json
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
 
 from maintainer_site.models import MaintainerGroup
 
@@ -36,7 +37,10 @@ class BlogView(APIView):
         sanitized_response = []
         blog_list = json.loads(response.content).get("items")
         max_blog_count = 6
-        required_blog_list = blog_list[:max_blog_count]
+        if response.status_code == 200:
+            required_blog_list = blog_list[:max_blog_count]
+        else:
+            return Response(status=status.HTTP_204_NO_CONTENT)
         for blog in required_blog_list:
             sanitized_content = {}
             for item in required_data_posts:
