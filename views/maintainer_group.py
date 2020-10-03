@@ -7,6 +7,8 @@ from maintainer_site.serializers.maintainer_group import (
     MaintainerGroupSerializer,
 )
 
+from django.core.exceptions import ObjectDoesNotExist
+
 
 class MaintainerGroupView(generics.RetrieveAPIView):
     """
@@ -24,4 +26,6 @@ class MaintainerGroupView(generics.RetrieveAPIView):
         try:
             return MaintainerGroup.objects.get(pk=1)
         except IndexError:
+            raise Http404
+        except ObjectDoesNotExist:
             raise Http404
