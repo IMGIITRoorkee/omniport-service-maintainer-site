@@ -23,5 +23,10 @@ class MaintainerGroupView(generics.RetrieveAPIView):
 
         try:
             return MaintainerGroup.objects.get(pk=1)
+<<<<<<< HEAD
         except MaintainerGroup.DoesNotExist:
             raise Http404h
+=======
+        except IndexError:
+            raise Http404
+>>>>>>> parent of 668bfda... Added exception for when the maintainer group is not created 404 is raised
