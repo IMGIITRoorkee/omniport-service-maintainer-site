@@ -44,9 +44,14 @@ class HitViewSet(ModelViewSet):
         maintainer_information = MaintainerInformation.objects.get(
             handle=handle,
         )
+        if self.request.user.is_authenticated \
+            and self.request.user.person.maintainer.maintainerinformation \
+            == maintainer_information:
+            return Response('Stop with the self-love :P')
+
         hit_instance, _ = Hit.objects.get_or_create(
             maintainer_information=maintainer_information,
         )
         hit_instance.views += 1
         hit_instance.save()
-        return HttpResponse(status=200)
+        return Response('Stalker, eh? ;)')
