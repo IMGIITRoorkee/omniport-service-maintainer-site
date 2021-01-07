@@ -23,5 +23,5 @@ class MaintainerGroupView(generics.RetrieveAPIView):
 
         try:
             return MaintainerGroup.objects.get(pk=1)
-        except IndexError:
+        except MaintainerGroup.DoesNotExist:
             raise Http404
