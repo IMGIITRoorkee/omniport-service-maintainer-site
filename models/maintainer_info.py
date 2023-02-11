@@ -25,16 +25,20 @@ class MaintainerInformation(Model):
 
     formal_biography = models.TextField(
         max_length=255,
+        null=True,
     )
     informal_biography = models.TextField(
         max_length=255,
+        null=True,
     )
 
     formal_image = models.ImageField(
         upload_to=UploadTo(Config.name, 'formal_image'),
+        null=True,
     )
     childhood_image = models.ImageField(
         upload_to=UploadTo(Config.name, 'informal_image'),
+        null=True,
     )
     technical_skills = models.TextField(
         null=True,
@@ -63,6 +67,6 @@ class MaintainerInformation(Model):
         :return: the string representation of the model
         """
 
-        handle = self.handle
+        informal_handle = self.informal_handle
         maintainer = self.maintainer
-        return f'{handle}: {maintainer}'
+        return f'{informal_handle}: {maintainer}'
