@@ -31,6 +31,7 @@ class MaintainerGroup(Model):
     medium_slug = models.CharField(
         max_length=63,
         blank=True,
+        # need to remove blank
     )
 
     contact_information = contenttypes_fields.GenericRelation(
