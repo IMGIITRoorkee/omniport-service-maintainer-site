@@ -33,28 +33,16 @@ class BlogView(APIView):
             required_blog_list = blog_list[:max_blog_count]
         else:
             return Response(status=status.HTTP_204_NO_CONTENT)
-        # for blog in required_blog_list:
-        #     sanitized_content = {}
-        #     for item in required_data_posts:
-        #         sanitized_content[item] = blog.get(item)
-        #     sanitized_response.append(sanitized_content)
-        # print(sanitized_response)
-        # return Response(sanitized_response)
 
-        category_dict = {"design": [], "development": [], "culture": []}
-        
+        category_dict = {"culture": [], "development": [], "design": []}
         sanitized_response = BlogView.tag_segregator(required_blog_list, category_dict)
-        
-
         two_for_each = BlogView.tag_count_checker(sanitized_response)
 
         while two_for_each == False:
-            print("****")
             required_blog_list = blog_list[max_blog_count: (max_blog_count+6)]
             sanitized_response = BlogView.tag_segregator(required_blog_list, category_dict)
             two_for_each = BlogView.tag_count_checker(sanitized_response)
             print(two_for_each)
-
         return Response(sanitized_response)
 
     def tag_count_checker(sanitized_response):
