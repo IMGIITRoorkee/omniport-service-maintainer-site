@@ -1,4 +1,5 @@
 import requests
+import re
 import json
 
 from rest_framework.views import APIView
@@ -42,7 +43,6 @@ class BlogView(APIView):
             required_blog_list = blog_list[max_blog_count: (max_blog_count+6)]
             sanitized_response = BlogView.tag_segregator(required_blog_list, category_dict)
             two_for_each = BlogView.tag_count_checker(sanitized_response)
-            print(two_for_each)
         return Response(sanitized_response)
 
     def tag_count_checker(sanitized_response):
@@ -84,7 +84,7 @@ class BlogView(APIView):
         """
         Returns a dictionary of required data for a blog
         """
-        
+
         required_data_posts = [
             "author",
             "title",
@@ -96,4 +96,8 @@ class BlogView(APIView):
         sanitized_content = {}
         for item in required_data_posts:
             sanitized_content[item] = blog.get(item)
+        tag_regex = r'>([^<]+)<'
+        tag_data = re.search(tag_regex, blog.get("description"))
+        if tag_data:
+            sanitized_content["description"] = tag_data.group(1)
         return sanitized_content

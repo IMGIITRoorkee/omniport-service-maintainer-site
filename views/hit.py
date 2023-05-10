@@ -42,7 +42,7 @@ class HitViewSet(ModelViewSet):
 
         handle = self.kwargs['maintainer_information']
         maintainer_information = MaintainerInformation.objects.get(
-            handle=handle,
+            informal_handle=handle,
         )
         if self.request.user.is_authenticated \
             and self.request.user.person.maintainer.maintainerinformation \
