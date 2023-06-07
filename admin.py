@@ -6,9 +6,11 @@ from maintainer_site.models import (
     MaintainerGroup,
     MaintainerInformation,
     Hit,
+    Blog,
 )
 
 omnipotence.register(Project)
 omnipotence.register(MaintainerGroup)
 omnipotence.register(MaintainerInformation)
 omnipotence.register(Hit)
+omnipotence.register(Blog)
