@@ -1,14 +1,15 @@
 import re
 import requests
 import json
+
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from maintainer_site.models import MaintainerGroup
 
-class BlogView(APIView):
-    MAX_BLOG_COUNT = 6
-    MIN_BLOGS_PER_CATEGORY = 2
+from maintainer_site.models import MaintainerGroup
+from maintainer_site.constants.blog_constant import MAX_BLOG_COUNT, MIN_BLOGS_PER_CATEGORY, MEDIUM_BLOG_URL
+
+class BlogView(APIView):    
 
     def get(self, request, format=None):
         """
@@ -16,8 +17,8 @@ class BlogView(APIView):
         :return: the sanitized response of blogs fetched from the Medium API
         """
 
-        max_blog_count = int(request.GET.get('max_blogs', self.MAX_BLOG_COUNT))
-        min_blogs_per_category = int(request.GET.get('min_blogs', self.MIN_BLOGS_PER_CATEGORY))
+        max_blog_count = int(request.GET.get('max_blogs', MAX_BLOG_COUNT))
+        min_blogs_per_category = int(request.GET.get('min_blogs', MIN_BLOGS_PER_CATEGORY))
 
         try:
             group_object = MaintainerGroup.objects.get(pk=1)
@@ -25,7 +26,7 @@ class BlogView(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         pub_id = group_object.medium_slug
-        url = f"https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/{pub_id}"
+        url = f"{MEDIUM_BLOG_URL}{pub_id}"
 
         try:
             response = requests.get(url)

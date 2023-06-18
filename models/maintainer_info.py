@@ -8,6 +8,7 @@ from formula_one.utils.upload_to import UploadTo
 
 from maintainer_site.apps import Config
 
+from maintainer_site.constants.blog_constant import PERSONALITY_TYPES_CHOICES
 
 class MaintainerInformation(Model):
     """
@@ -36,6 +37,11 @@ class MaintainerInformation(Model):
         null=True,
     )
 
+    want_to_be = models.TextField(
+        max_length=127,
+        null=True,
+    )
+
     formal_image = models.ImageField(
         upload_to=UploadTo(Config.name, 'formal_image'),
         null=True,
@@ -54,24 +60,6 @@ class MaintainerInformation(Model):
         null=True,
     )
 
-    PERSONALITY_TYPES_CHOICES = [
-    ('adventurer', 'Adventurer'),
-    ('advocate', 'Advocate'),
-    ('architect', 'Architect'),
-    ('campaigner', 'Campaigner'),
-    ('commander', 'Commander'),
-    ('consul', 'Consul'),
-    ('debater', 'Debater'),
-    ('defender', 'Defender'),
-    ('entertainer', 'Entertainer'),
-    ('entrepreneur', 'Entrepreneur'),
-    ('executive', 'Executive'),
-    ('logician', 'Logician'),
-    ('logistician', 'Logistician'),
-    ('mediator', 'Mediator'),
-    ('protagonist', 'Protagonist'),
-    ('virtuoso', 'Virtuoso'),
-    ]
     personality_type = models.CharField(
         max_length=100, 
         choices=PERSONALITY_TYPES_CHOICES,

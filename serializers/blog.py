@@ -1,9 +1,7 @@
 from rest_framework import serializers
 
 from maintainer_site.models import Blog
-from maintainer_site.serializers.maintainer_info import (
-    MaintainerInfoSerializer,
-)
+from maintainer_site.serializers.maintainer_info import MaintainerInfoSerializer
 
 class BlogSerializer(serializers.ModelSerializer):
     """

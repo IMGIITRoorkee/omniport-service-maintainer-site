@@ -2,39 +2,24 @@ import requests
 import re
 
 from django.shortcuts import get_object_or_404
+
+from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
 
 from maintainer_site.models import MaintainerInformation, Blog
 from maintainer_site.serializers.blog import BlogSerializer
 
-from rest_framework import permissions
-from rest_framework.permissions import IsAuthenticated, SAFE_METHODS
-from kernel.permissions.has_role import get_has_role
-from formula_one.mixins.period_mixin import ActiveStatus
+from maintainer_site.permissions.auth_maintainer import IsMaintainer
 
 class MaintainerBlogView(APIView):
     """
     This view shows the list of blogs published by the mainatainer group on Medium.
     """
     
-    permission_classes = []
+    permission_classes = [IsMaintainer]
     serializer_class = BlogSerializer
-
-    def get_permissions(self):
-        """
-        Prohibit unauthenticated and non-maintainers to update, edit or delete
-        a project
-        """
-
-        permissions = []
-        if self.request.method not in SAFE_METHODS:
-            permissions = [
-                IsAuthenticated & get_has_role('Maintainer', ActiveStatus.ANY)
-            ]
-        return [permission() for permission in permissions]
-
+    
     def get(self, request, unique_id=None):
         """
         Returns the blogs written by the maintainer when authenticated if unique_id passed, else lists all blogs
@@ -45,13 +30,13 @@ class MaintainerBlogView(APIView):
                 try:
                     maintainer_info = MaintainerInformation.objects.get(informal_handle=unique_id)
                 except:
-                    return Response({"message": "Pass handle name to get blogs written by the maintainer."})
+                    return Response({"message": "Pass handle name to get blogs written by the maintainer."}, status=status.HTTP_400_BAD_REQUEST)
 
                 blogs = Blog.objects.filter(member=maintainer_info.maintainer)
                 if not blogs:
-                    return Response({"message": "No blog found from the maintainer."})
+                    return Response({"message": "No blog found from the maintainer."}, status=status.HTTP_404_NOT_FOUND)
                 serialized_blog = BlogSerializer(blogs, many=True)
-                return Response(serialized_blog.data)
+                return Response(serialized_blog.data, status=status.HTTP_200_OK)
             except Blog.DoesNotExist:
                 return Response({"message": "Blog does not exist"}, status=status.HTTP_404_NOT_FOUND)
         else:
@@ -62,9 +47,9 @@ class MaintainerBlogView(APIView):
                 except Blog.DoesNotExist: 
                     return Response({"message": "Blog does not exist"}, status=status.HTTP_404_NOT_FOUND)
                 serialized_blog = BlogSerializer(blog)
-                return Response(serialized_blog.data)
+                return Response(serialized_blog.data, status=status.HTTP_200_OK)
             blogs = BlogSerializer(Blog.objects.all(), many=True)
-            return Response(blogs.data)
+            return Response(blogs.data, status=status.HTTP_200_OK)
 
     def filter_blogs_by_maintainer(handle_name):
         """

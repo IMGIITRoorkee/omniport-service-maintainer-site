@@ -44,10 +44,10 @@ class HitViewSet(ModelViewSet):
         maintainer_information = MaintainerInformation.objects.get(
             informal_handle=handle,
         )
-        if self.request.user.is_authenticated \
-            and self.request.user.person.maintainer.maintainerinformation \
-            == maintainer_information:
-            return Response('Stop with the self-love :P')
+        if self.request.user.is_authenticated:
+            if hasattr(self.request.user.person, 'maintainer') and \
+                self.request.user.person.maintainer.maintainerinformation == maintainer_information:
+                return Response('Stop with the self-love :P')
 
         hit_instance, _ = Hit.objects.get_or_create(
             maintainer_information=maintainer_information,
