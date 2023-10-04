@@ -9,7 +9,6 @@ from rest_framework.response import Response
 
 from maintainer_site.models import MaintainerInformation, Blog
 from maintainer_site.serializers.blog import BlogSerializer
-
 from maintainer_site.permissions.auth_maintainer import IsMaintainer
 
 class MaintainerBlogView(APIView):
