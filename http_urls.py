@@ -1,6 +1,7 @@
 from rest_framework import routers
-from django.urls import path, include
-from maintainer_site.views.blog import BlogView
+from django.urls import path, include, re_path
+from maintainer_site.views.medium_blog import BlogView
+from maintainer_site.views.maintainer_blog import MaintainerBlogView
 from maintainer_site.views.maintainer_project import MaintainerProjectView
 from maintainer_site.views.project import ProjectViewSet
 from maintainer_site.views.social_information import SocialInformationView
@@ -50,4 +51,6 @@ urlpatterns = [
         path('maintainer_group/', MaintainerGroupView.as_view()),
         path('network_to_media/', NetworkToMedia.as_view()),
         path('', include(router.urls)),
+
+        re_path(r'^maintainer_blog/(?P<unique_id>[^/.]+)?/?$', MaintainerBlogView.as_view()),
 ]

@@ -8,6 +8,7 @@ from formula_one.utils.upload_to import UploadTo
 
 from maintainer_site.apps import Config
 
+from maintainer_site.constants.blog_constant import PERSONALITY_TYPES_CHOICES
 
 class MaintainerInformation(Model):
     """
@@ -22,6 +23,10 @@ class MaintainerInformation(Model):
     informal_handle = models.SlugField(
         primary_key=True,
     )
+    nick_name = models.TextField(
+        max_length=255,
+        null=True,
+    )
 
     formal_biography = models.TextField(
         max_length=255,
@@ -29,6 +34,11 @@ class MaintainerInformation(Model):
     )
     informal_biography = models.TextField(
         max_length=255,
+        null=True,
+    )
+
+    want_to_be = models.TextField(
+        max_length=127,
         null=True,
     )
 
@@ -49,7 +59,10 @@ class MaintainerInformation(Model):
     favourite_sports = models.TextField(
         null=True,
     )
-    personality_type = models.SlugField(
+
+    personality_type = models.CharField(
+        max_length=100, 
+        choices=PERSONALITY_TYPES_CHOICES,
         null=True,
     )
 
