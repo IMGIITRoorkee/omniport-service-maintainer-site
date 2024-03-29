@@ -7,6 +7,15 @@ from formula_one.utils.upload_to import UploadTo
 
 from maintainer_site.apps import Config
 
+import os
+from django.core.exceptions import ValidationError
+
+def validate_file_extension(value):
+    ext = os.path.splitext(value.name)[1].lower()
+    allowed_extensions = ['.jpg', '.jpeg', '.png', '.gif', '.svg']
+    if ext not in allowed_extensions:
+        raise ValidationError('Only JPG, JPEG, PNG, GIF, and SVG files are allowed.')
+
 
 class Project(Model):
     """
@@ -33,8 +42,9 @@ class Project(Model):
     )
     long_description = HTMLField()
 
-    image = models.ImageField(
+    image = models.FileField(
         upload_to=UploadTo(Config.name, 'projects'),
+        validators=[validate_file_extension],
     )
 
     def __str__(self):

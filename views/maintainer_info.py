@@ -16,7 +16,7 @@ class MaintainerInfoViewSet(viewsets.ModelViewSet):
     A viewset for viewing and editing all the Maintainer's Information
     """
 
-    lookup_field = 'handle'
+    lookup_field = 'informal_handle'
     serializer_class = MaintainerInfoSerializer
     queryset = MaintainerInformation.objects.all()
 
