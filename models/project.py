@@ -10,7 +10,7 @@ from maintainer_site.apps import Config
 
 class Project(Model):
     """
-    This model holds the information about a project of the maintainers
+    This model holds the information about a projects of the maintainers
     """
 
     slug = models.SlugField(
@@ -22,20 +22,42 @@ class Project(Model):
         unique=True,
     )
 
-    members = models.ManyToManyField(
-        to=swapper.get_model_name('kernel', 'Maintainer'),
-        blank=False,
-    )
-
     short_description = models.TextField(
         max_length=255,
         blank=True,
     )
+    
     long_description = HTMLField()
 
     image = models.ImageField(
-        upload_to=UploadTo(Config.name, 'projects'),
+        upload_to=UploadTo(Config.name, 'project_image'),
     )
+    
+    logo = models.ImageField(
+        upload_to=UploadTo(Config.name, 'project_logo'),
+    )
+    
+    github_link = models.URLField(
+        blank=True,
+    )
+    
+    website_link = models.URLField(
+        blank=True,
+    )
+    
+    time_published = models.DateField()
+    
+    is_featured = models.BooleanField(
+        default=False,
+        help_text='Whether the project is featured on the maintainer site',
+    )
+    
+    class Meta:
+        """
+        Meta class for Project
+        """
+
+        verbose_name_plural = 'projects'
 
     def __str__(self):
         """
