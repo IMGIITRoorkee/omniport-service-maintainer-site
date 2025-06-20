@@ -6,9 +6,13 @@ from maintainer_site.models import (
     MaintainerGroup,
     MaintainerInformation,
     Hit,
+    Culture,
+    Album,
 )
 
 omnipotence.register(Project)
 omnipotence.register(MaintainerGroup)
 omnipotence.register(MaintainerInformation)
 omnipotence.register(Hit)
+omnipotence.register(Culture)
+omnipotence.register(Album)

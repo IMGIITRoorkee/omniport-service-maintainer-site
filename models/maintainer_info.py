@@ -72,6 +72,21 @@ class MaintainerInformation(Model):
         default=False,
         help_text='Whether the maintainer is a Mac user',
     )
+    
+    is_foodie = models.BooleanField(
+        default=False,
+        help_text='Whether the maintainer is a foodie',
+    )
+    
+    is_night_owl = models.BooleanField(
+        default=False,
+        help_text='Whether the maintainer is a night owl',
+    )
+    
+    is_early_bird = models.BooleanField(
+        default=False,
+        help_text='Whether the maintainer is an early bird',
+    )
 
     class Meta:
         """
