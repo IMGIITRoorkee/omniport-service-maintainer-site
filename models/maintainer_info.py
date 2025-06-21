@@ -63,29 +63,16 @@ class MaintainerInformation(Model):
         help_text='Whether the maintainer is a cinematographer',
     )
     
-    is_windows_user = models.BooleanField(
-        default=False,
-        help_text='Whether the maintainer is a Windows user',
-    )
+    OS_CHOICES = [
+        ('windows', 'Windows'),
+        ('mac', 'Mac'),
+        ('linux', 'Linux'),
+    ]
     
-    is_mac_user = models.BooleanField(
-        default=False,
-        help_text='Whether the maintainer is a Mac user',
-    )
-    
-    is_foodie = models.BooleanField(
-        default=False,
-        help_text='Whether the maintainer is a foodie',
-    )
-    
-    is_night_owl = models.BooleanField(
-        default=False,
-        help_text='Whether the maintainer is a night owl',
-    )
-    
-    is_early_bird = models.BooleanField(
-        default=False,
-        help_text='Whether the maintainer is an early bird',
+    os_preferences = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text='Comma-separated list of OS preferences (windows, mac, linux)',
     )
 
     class Meta:

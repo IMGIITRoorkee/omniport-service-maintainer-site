@@ -59,29 +59,52 @@ class CultureViewSet(viewsets.ModelViewSet):
         try:
             total_count = MaintainerInformation.objects.count()
             
+            if total_count == 0:
+                return Response({
+                    'total_maintainers': 0,
+                    'total_designers': 0,
+                    'total_developers': 0,
+                    'percent_anime_lovers': 0,
+                    'percent_gamers': 0,
+                    'percent_singers': 0,
+                    'percent_cinematographers': 0,
+                    'percent_windows_users': 0,
+                    'percent_mac_users': 0,
+                    'percent_linux_users': 0,
+                    'percent_cricket_fans': 0,
+                }, status=status.HTTP_200_OK)
+            
+            
+            designers_count = MaintainerInformation.objects.filter(
+                Q(maintainer__role='des') | Q(maintainer__role='duo')
+            ).count()
+            developers_count = MaintainerInformation.objects.filter(
+                Q(maintainer__role='dev') | Q(maintainer__role='duo')
+            ).count()
+            
+            anime_lovers_count = MaintainerInformation.objects.filter(is_anime_lover=True).count()
+            gamers_count = MaintainerInformation.objects.filter(is_gamer=True).count()
+            singers_count = MaintainerInformation.objects.filter(is_singer=True).count()
+            cinematographers_count = MaintainerInformation.objects.filter(is_cinematographer=True).count()
+            cricket_fans_count = MaintainerInformation.objects.filter(is_cricket_lover=True).count()
+            
+            windows_users_count = MaintainerInformation.objects.filter(os_preferences__icontains='windows').count()
+            mac_users_count = MaintainerInformation.objects.filter(os_preferences__icontains='mac').count()
+            linux_users_count = MaintainerInformation.objects.filter(os_preferences__icontains='linux').count()
+            
             maintainer_stats = {
                 'total_maintainers': total_count,
+                'total_designers': designers_count,
+                'total_developers': developers_count,
+                'percent_anime_lovers': round((anime_lovers_count / total_count) * 100, 2),
+                'percent_gamers': round((gamers_count / total_count) * 100, 2),
+                'percent_singers': round((singers_count / total_count) * 100, 2),
+                'percent_cinematographers': round((cinematographers_count / total_count) * 100, 2),
+                'percent_windows_users': round((windows_users_count / total_count) * 100, 2),
+                'percent_mac_users': round((mac_users_count / total_count) * 100, 2),
+                'percent_linux_users': round((linux_users_count / total_count) * 100, 2),
+                'percent_cricket_fans': round((cricket_fans_count / total_count) * 100, 2),
             }
-            
-            boolean_fields = [
-                ('anime_fans', 'is_anime_lover'),
-                ('foodies', 'is_foodie'),
-                ('night_owls', 'is_night_owl'),
-                ('early_birds', 'is_early_bird'),
-                ('gamers', 'is_gamer'),
-                ('singers', 'is_singer'),
-                ('cricket_lovers', 'is_cricket_lover'),
-                ('cinematographers', 'is_cinematographer'),
-                ('windows_users', 'is_windows_user'),
-                ('mac_users', 'is_mac_user'),
-            ]
-            
-            for stat_name, field_name in boolean_fields:
-                try:
-                    count = MaintainerInformation.objects.filter(**{field_name: True}).count()
-                    maintainer_stats[stat_name] = count
-                except Exception as field_error:
-                    maintainer_stats[stat_name] = 0
             
             return Response(maintainer_stats, status=status.HTTP_200_OK)
             
