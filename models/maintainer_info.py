@@ -1,8 +1,7 @@
-import datetime
-from django.db import models
-from django.contrib.postgres.fields import ArrayField
-
 import swapper
+
+from django.db import models
+
 from formula_one.models.base import Model
 from formula_one.utils.upload_to import UploadTo
 
@@ -30,35 +29,49 @@ class MaintainerInformation(Model):
     normie_image = models.ImageField(
         upload_to=UploadTo(Config.name, 'normie_image'),
     )
+    
     dank_image = models.ImageField(
         upload_to=UploadTo(Config.name, 'dank_image'),
     )
+    
     technical_skills = models.TextField(
         null=True,
     )
-
-    """
-    favourite_music = ArrayField(
-        models.CharField(max_length=63, blank=True),
-        size=5,
+    
+    is_gamer = models.BooleanField(
+        default=False,
+        help_text='Whether the maintainer is a gamer',
     )
-    favourite_literature = ArrayField(
-        models.CharField(max_length=63, blank=True),
-        size=5,
+    
+    is_anime_lover = models.BooleanField(
+        default=False,
+        help_text='Whether the maintainer is an anime lover',
     )
-    favourite_video = ArrayField(
-        models.CharField(max_length=63, blank=True),
-        size=5,
+    
+    is_singer = models.BooleanField(
+        default=False,
+        help_text='Whether the maintainer is a singer',
     )
-    favourite_hobbies = ArrayField(
-        models.CharField(max_length=63, blank=True),
-        size=5,
+    
+    is_cricket_lover = models.BooleanField(
+        default=False,
+        help_text='Whether the maintainer is a cricket lover',
     )
-        favourite_games = ArrayField(
-        models.CharField(max_length=63, blank=True),
-        size=5,
+    
+    is_cinematographer = models.BooleanField(
+        default=False,
+        help_text='Whether the maintainer is a cinematographer',
     )
-    """
+    
+    is_windows_user = models.BooleanField(
+        default=False,
+        help_text='Whether the maintainer is a Windows user',
+    )
+    
+    is_mac_user = models.BooleanField(
+        default=False,
+        help_text='Whether the maintainer is a Mac user',
+    )
 
     class Meta:
         """
@@ -75,4 +88,5 @@ class MaintainerInformation(Model):
 
         handle = self.handle
         maintainer = self.maintainer
+        
         return f'{handle}: {maintainer}'
