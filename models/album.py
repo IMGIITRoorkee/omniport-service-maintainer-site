@@ -33,6 +33,10 @@ class Album(Model):
         help_text='Link to the Google Drive folder containing the album photos',
     )
     
+    year = models.PositiveIntegerField(
+        help_text='Year to which the album belongs',
+    )
+    
     class Meta:
         """
         Meta class for Album

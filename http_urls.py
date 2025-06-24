@@ -16,6 +16,8 @@ from maintainer_site.views.social_link import SocialLinkViewSet
 from maintainer_site.views.logged_maintainer import LoggedMaintainerViewSet
 from maintainer_site.views.hit import HitViewSet
 from maintainer_site.views.network_to_media import NetworkToMedia
+from maintainer_site.views.culture import CultureViewSet
+from maintainer_site.views.album import AlbumViewSet
 
 router = routers.SimpleRouter()
 router.register('projects', ProjectViewSet, basename='project')
@@ -43,6 +45,11 @@ router.register(
 router.register('hit', HitViewSet, basename='Hit')
 
 urlpatterns = [
+        path('culture/summary/', CultureViewSet.as_view({'get': 'summary'}), name='culture-summary'),
+        path('culture/memories/', CultureViewSet.as_view({'get': 'memories', 'post': 'create'}), name='culture-memories'),
+        path('culture/memories/<int:pk>/', CultureViewSet.as_view({'patch': 'partial_update', 'delete': 'destroy'}), name='culture-memory-detail'),
+        path('culture/memories/<int:culture_id>/albums/', AlbumViewSet.as_view({'get': 'list', 'post': 'create'}), name='culture-albums'),
+        path('culture/memories/<int:culture_id>/albums/<int:pk>/', AlbumViewSet.as_view({'patch': 'partial_update', 'delete': 'destroy'}), name='culture-album-detail'),
         path('blog/', BlogView.as_view()),
         path('social/', SocialInformationView.as_view()),
         path('location/', LocationInformationView.as_view()),

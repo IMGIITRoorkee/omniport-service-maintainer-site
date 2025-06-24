@@ -63,14 +63,16 @@ class MaintainerInformation(Model):
         help_text='Whether the maintainer is a cinematographer',
     )
     
-    is_windows_user = models.BooleanField(
-        default=False,
-        help_text='Whether the maintainer is a Windows user',
-    )
+    OS_CHOICES = [
+        ('windows', 'Windows'),
+        ('mac', 'Mac'),
+        ('linux', 'Linux'),
+    ]
     
-    is_mac_user = models.BooleanField(
-        default=False,
-        help_text='Whether the maintainer is a Mac user',
+    os_preferences = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text='Comma-separated list of OS preferences (windows, mac, linux)',
     )
 
     class Meta:

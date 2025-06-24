@@ -13,7 +13,7 @@ class Culture(Model):
     
     TAG_CHOICES = [
         ('misc', 'Miscellaneous'),
-        ('photoshoot', 'Photoshoot'),
+        ('photoshoot', 'Photoshoot'), 
         ('chaapo', 'Chaapo'),
         ('winter_trip', 'Winter Trip'),
         ('festival', 'Festival'),
