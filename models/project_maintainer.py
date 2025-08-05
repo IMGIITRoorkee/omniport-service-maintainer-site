@@ -13,7 +13,7 @@ class ProjectMaintainer(Model):
 
     project = models.ForeignKey(
         to='Project', 
-        related_name='project',
+        related_name='project_maintainers',
         on_delete=models.CASCADE
     )
     
