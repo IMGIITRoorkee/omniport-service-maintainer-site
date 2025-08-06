@@ -14,7 +14,7 @@ class Project(Model):
     """
 
     slug = models.SlugField(
-        primary_key=True,
+        unique=True,
     )
 
     title = models.CharField(
@@ -65,4 +65,4 @@ class Project(Model):
         :return: the string representation of the object
         """
 
-        return self.title
+        return f"{self.id} {self.title} : {self.slug}"

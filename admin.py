@@ -8,6 +8,7 @@ from maintainer_site.models import (
     Hit,
     Culture,
     Album,
+    ProjectMaintainer,
 )
 
 omnipotence.register(Project)
@@ -16,3 +17,4 @@ omnipotence.register(MaintainerInformation)
 omnipotence.register(Hit)
 omnipotence.register(Culture)
 omnipotence.register(Album)
+omnipotence.register(ProjectMaintainer)
