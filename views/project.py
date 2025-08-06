@@ -32,7 +32,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
             return ProjectDetailSerializer
         elif self.action in ['create', 'update', 'partial_update']:
             return ProjectCreateUpdateSerializer
-        return super().get_serializer_class()
+        return ProjectDetailSerializer
 
     def get_permissions(self):
         """
