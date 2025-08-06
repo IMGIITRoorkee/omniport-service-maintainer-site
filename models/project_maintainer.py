@@ -26,8 +26,8 @@ class ProjectMaintainer(Model):
     role = models.CharField(
         max_length=100
     )
-    
-    date_joined = models.DateField()
+
+    date_joined = models.DateField(auto_now_add=True)
 
     class Meta:
         """
@@ -35,7 +35,7 @@ class ProjectMaintainer(Model):
         """
         
         unique_together = ('project', 'maintainer')
-        verbose_name_plural = 'project_maintainers'
+        verbose_name_plural = 'project maintainers'
 
     def __str__(self):
         """

@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from kernel.models.roles.maintainer import Maintainer
+
+from shell.models.roles.maintainer import Maintainer
 
 from maintainer_site.models import ProjectMaintainer
 
@@ -78,7 +79,7 @@ class ProjectMaintainerCreateSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         if request and request.user:
             try:
-                maintainer = Maintainer.objects.get(user=request.user)
+                maintainer = Maintainer.objects.get(person__user=request.user)
                 if not self.instance:
                     if ProjectMaintainer.objects.filter(project=attrs['project'], maintainer=maintainer).exists():
                         raise serializers.ValidationError("You are already a maintainer of this project.")
