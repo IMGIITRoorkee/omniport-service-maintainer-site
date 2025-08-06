@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from maintainer_site.models import Project
-from maintainer_site.serializers.project_maintainer import ProjectMaintainerSerializer
+from maintainer_site.serializers.project_maintainer import ProjectMaintainersListSerializer
 
 class ProjectListSerializer(serializers.ModelSerializer):
     """
@@ -31,7 +31,7 @@ class ProjectDetailSerializer(serializers.ModelSerializer):
     Serializer for detailed view of a project
     """
 
-    project_maintainers = ProjectMaintainerSerializer(many=True, read_only=True)
+    project_maintainers = ProjectMaintainersListSerializer(many=True, read_only=True)
 
     class Meta:
         """
