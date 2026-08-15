@@ -2,6 +2,7 @@ from django.http import Http404
 
 from rest_framework import generics
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 
 from maintainer_site.models.maintainer_group import MaintainerGroup
 from formula_one.serializers.generics.location_information import (
@@ -13,6 +14,8 @@ class LocationInformationView(generics.RetrieveAPIView):
     """
     This views shows the location of the maintainer group
     """
+
+    permission_classes = [AllowAny]
 
     serializer_class = LocationInformationSerializer
 

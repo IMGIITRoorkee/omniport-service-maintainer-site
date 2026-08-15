@@ -1,6 +1,7 @@
 from django.http import Http404
 
 from rest_framework import generics
+from rest_framework.permissions import AllowAny
 
 from maintainer_site.models.maintainer_group import MaintainerGroup
 from formula_one.serializers.generics.contact_information import (
@@ -12,6 +13,8 @@ class ContactInformationView(generics.RetrieveAPIView):
     """
     This views shows the contact information of the maintainer group
     """
+
+    permission_classes = [AllowAny]
 
     serializer_class = ContactInformationSerializer
 

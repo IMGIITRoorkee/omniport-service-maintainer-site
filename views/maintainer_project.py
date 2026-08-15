@@ -2,6 +2,7 @@ import json
 
 from rest_framework import viewsets
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from maintainer_site.serializers.project import ProjectSerializer
 from maintainer_site.models import Project
@@ -11,6 +12,8 @@ class MaintainerProjectView(viewsets.ModelViewSet):
     """
     A viewset for viewing all the projects of the current maintainer
     """
+
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     serializer_class = ProjectSerializer
     pagination_class = None

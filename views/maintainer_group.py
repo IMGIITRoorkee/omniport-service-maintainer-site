@@ -1,6 +1,7 @@
 from django.http import Http404
 
 from rest_framework import generics
+from rest_framework.permissions import AllowAny
 
 from maintainer_site.models.maintainer_group import MaintainerGroup
 from maintainer_site.serializers.maintainer_group import (
@@ -12,6 +13,8 @@ class MaintainerGroupView(generics.RetrieveAPIView):
     """
     This view shows details of the maintainer group
     """
+
+    permission_classes = [AllowAny]
 
     serializer_class = MaintainerGroupSerializer
 

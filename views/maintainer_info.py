@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 import swapper
 from formula_one.enums.active_status import ActiveStatus
@@ -15,6 +16,8 @@ class MaintainerInfoViewSet(viewsets.ModelViewSet):
     """
     A viewset for viewing and editing all the Maintainer's Information
     """
+
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     lookup_field = 'handle'
     serializer_class = MaintainerInfoSerializer

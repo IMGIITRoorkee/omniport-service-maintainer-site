@@ -4,6 +4,7 @@ import json
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import AllowAny
 
 from maintainer_site.models import MaintainerGroup
 
@@ -13,6 +14,8 @@ class BlogView(APIView):
     This view shows the list of blog published by the mainatainer group on
     Medium.
     """
+
+    permission_classes = [AllowAny]
 
     def get(self, request, format=None):
         """
