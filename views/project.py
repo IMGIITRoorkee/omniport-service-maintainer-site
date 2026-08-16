@@ -1,6 +1,5 @@
 from rest_framework import viewsets
-from rest_framework import permissions
-from rest_framework.permissions import IsAuthenticated, SAFE_METHODS
+from rest_framework.permissions import AllowAny, IsAuthenticated, SAFE_METHODS
 
 from kernel.permissions.has_role import get_has_role
 from formula_one.mixins.period_mixin import ActiveStatus
@@ -24,7 +23,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
         a project
         """
 
-        permission_classes = []
+        permission_classes = [AllowAny]
         if self.request.method not in SAFE_METHODS:
             permission_classes = [
                 IsAuthenticated & get_has_role('Maintainer', ActiveStatus.ANY)
