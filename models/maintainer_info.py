@@ -19,46 +19,40 @@ class MaintainerInformation(Model):
         on_delete=models.CASCADE,
     )
 
-    handle = models.SlugField(
+    informal_handle = models.SlugField(
         primary_key=True,
     )
 
-    short_biography = models.TextField(
+    formal_biography = models.TextField(
         max_length=255,
+        null=True,
+    )
+    informal_biography = models.TextField(
+        max_length=255,
+        null=True,
     )
 
-    normie_image = models.ImageField(
-        upload_to=UploadTo(Config.name, 'normie_image'),
+    formal_image = models.ImageField(
+        upload_to=UploadTo(Config.name, 'formal_image'),
+        null=True,
     )
-    dank_image = models.ImageField(
-        upload_to=UploadTo(Config.name, 'dank_image'),
+    childhood_image = models.ImageField(
+        upload_to=UploadTo(Config.name, 'informal_image'),
+        null=True,
     )
     technical_skills = models.TextField(
         null=True,
     )
+    favourite_series = models.TextField(
+        null=True,
+    )
+    favourite_sports = models.TextField(
+        null=True,
+    )
+    personality_type = models.SlugField(
+        null=True,
+    )
 
-    """
-    favourite_music = ArrayField(
-        models.CharField(max_length=63, blank=True),
-        size=5,
-    )
-    favourite_literature = ArrayField(
-        models.CharField(max_length=63, blank=True),
-        size=5,
-    )
-    favourite_video = ArrayField(
-        models.CharField(max_length=63, blank=True),
-        size=5,
-    )
-    favourite_hobbies = ArrayField(
-        models.CharField(max_length=63, blank=True),
-        size=5,
-    )
-        favourite_games = ArrayField(
-        models.CharField(max_length=63, blank=True),
-        size=5,
-    )
-    """
 
     class Meta:
         """
@@ -73,6 +67,6 @@ class MaintainerInformation(Model):
         :return: the string representation of the model
         """
 
-        handle = self.handle
+        informal_handle = self.informal_handle
         maintainer = self.maintainer
-        return f'{handle}: {maintainer}'
+        return f'{informal_handle}: {maintainer}'
