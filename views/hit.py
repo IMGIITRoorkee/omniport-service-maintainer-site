@@ -1,7 +1,7 @@
-import swapper
-from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from kernel.permissions.has_role import get_has_role
 from formula_one.mixins.period_mixin import ActiveStatus
@@ -21,13 +21,18 @@ class HitViewSet(ModelViewSet):
     queryset = Hit.objects.all()
 
     def get_permissions(self):
-        if self.action == 'list' or self.action == 'retrieve':
-            permission_classes = (
-                get_has_role('Maintainer', ActiveStatus.IS_ACTIVE) |
-                get_has_role('Maintainer', ActiveStatus.HAS_BEEN_ACTIVE),
-            )
+        """
+        Leave the view counter increment open to visitors and restrict every
+        other action to maintainers
+        :return: the permissions the action being processed requires
+        """
+
+        if self.action in ('update', 'partial_update'):
+            permission_classes = [AllowAny]
         else:
-            permission_classes = ()
+            permission_classes = [
+                IsAuthenticated & get_has_role('Maintainer', ActiveStatus.ANY)
+            ]
         return [permission() for permission in permission_classes]
 
     def list(self, request, *args, **kwargs):
@@ -41,12 +46,13 @@ class HitViewSet(ModelViewSet):
         """
 
         handle = self.kwargs['maintainer_information']
-        maintainer_information = MaintainerInformation.objects.get(
+        maintainer_information = get_object_or_404(
+            MaintainerInformation,
             handle=handle,
         )
-        if self.request.user.is_authenticated \
-            and self.request.user.person.maintainer.maintainerinformation \
-            == maintainer_information:
+        maintainer = getattr(self.request.person, 'maintainer', None)
+        if getattr(maintainer, 'maintainerinformation', None) \
+                == maintainer_information:
             return Response('Stop with the self-love :P')
 
         hit_instance, _ = Hit.objects.get_or_create(

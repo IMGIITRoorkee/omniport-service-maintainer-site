@@ -1,16 +1,19 @@
-import json
-
 from rest_framework import viewsets
-from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 
 from maintainer_site.serializers.project import ProjectSerializer
 from maintainer_site.models import Project
 
 
-class MaintainerProjectView(viewsets.ModelViewSet):
+class MaintainerProjectView(viewsets.ReadOnlyModelViewSet):
     """
     A viewset for viewing all the projects of the current maintainer
+
+    Projects are written through ProjectViewSet, which is gated on the
+    Maintainer role
     """
+
+    permission_classes = [AllowAny]
 
     serializer_class = ProjectSerializer
     pagination_class = None

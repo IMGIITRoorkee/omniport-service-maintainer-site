@@ -1,8 +1,10 @@
 from rest_framework import viewsets
+from rest_framework.permissions import AllowAny
 
 import swapper
 from formula_one.enums.active_status import ActiveStatus
 
+from maintainer_site.metadata import PublicFieldMetadata
 from maintainer_site.models.maintainer_info import MaintainerInformation
 from maintainer_site.serializers.maintainer_info import (
     MaintainerInfoSerializer,
@@ -11,10 +13,16 @@ from maintainer_site.serializers.maintainer_info import (
 Maintainer = swapper.load_model('kernel', 'Maintainer')
 
 
-class MaintainerInfoViewSet(viewsets.ModelViewSet):
+class MaintainerInfoViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    A viewset for viewing and editing all the Maintainer's Information
+    A viewset for viewing all the Maintainer's Information
+
+    Maintainers edit their own information through LoggedMaintainerViewSet,
+    which scopes the queryset to the requesting person
     """
+
+    permission_classes = [AllowAny]
+    metadata_class = PublicFieldMetadata
 
     lookup_field = 'handle'
     serializer_class = MaintainerInfoSerializer
@@ -23,7 +31,7 @@ class MaintainerInfoViewSet(viewsets.ModelViewSet):
 
 class ActiveMaintainerInfoViewSet(MaintainerInfoViewSet):
     """
-    A viewset for viewing and editing all the active Maintainer's Information
+    A viewset for viewing all the active Maintainer's Information
     and those who will be active in future
     """
 
@@ -51,8 +59,7 @@ class ActiveMaintainerInfoViewSet(MaintainerInfoViewSet):
 
 class InactiveMaintainerInfoViewSet(MaintainerInfoViewSet):
     """
-    A viewset for viewing and editing all the Maintainer's Information who
-    were active
+    A viewset for viewing all the Maintainer's Information who were active
     """
 
     pagination_size = 12
